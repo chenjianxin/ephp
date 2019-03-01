@@ -313,6 +313,9 @@ get_message(eparse, {unexpected, Value}) when is_binary(Value) ->
 get_message(eparse, {Value, Type}) when is_binary(Type) ->
     io_lib:format("syntax error, unexpected '~s' (~s)", [Value, Type]);
 
+get_message(eparse, {Value, Type, Expected}) when is_binary(Type) ->
+    io_lib:format("syntax error, unexpected '~s' (~s), expecting '~s'", [Value, Type, Expected]);
+
 get_message(eparse, {Type}) when is_binary(Type) ->
     io_lib:format("parse error, expecting ~s", [Type]);
 
@@ -446,6 +449,9 @@ get_message(eundefidx, {Idx}) when is_integer(Idx) ->
 
 get_message(eundefidx, {Idx}) ->
     io_lib:format("Undefined index: ~s", [Idx]);
+
+get_message(enamespace, _) ->
+    "Namespace declaration statement has to be the very first statement or after any declare call in the script";
 
 get_message(Unknown, Data) ->
     io_lib:format("unknown ~p for ~p", [Unknown, Data]).

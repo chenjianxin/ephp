@@ -1,0 +1,2 @@
+
+Parse error: syntax error, unexpected '\' (T_NS_SEPARATOR), expecting '{' in {{CWD}}/test/code/test_namespace_class_error.php on line 4

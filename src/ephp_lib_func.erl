@@ -18,6 +18,7 @@
 ]).
 
 -include("ephp.hrl").
+-include("ephp_parser.hrl").
 
 -spec init_func() -> ephp_func:php_function_results().
 
@@ -94,7 +95,7 @@ call_user_func(Context, Line, _Args) ->
                       Code :: var_value()) -> #function{}.
 
 create_function(_Context, {{line, Line}, _}, {_, Args}, {_, Code}) ->
-    Pos = {code, Line, 1},
+    Pos = #parser{level = code, row = Line},
     {_, _, A} = ephp_parser_func:funct_args(<<Args/binary, ")">>, Pos, []),
     {_, _, C} = ephp_parser:code(Code, Pos, []),
     ephp_parser:add_line(#function{args = A, code = C}, Pos).
